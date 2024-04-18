@@ -15,6 +15,7 @@ TECHNICAL TEST FLUTTER DEVELOPER PT CIPTA PIRANTI SEJAHTERA
 6. Untuk mengubah urutan tekan icon sort
 
   <img src="https://github.com/wanzrb/accurate-flutter-test/assets/77485523/928e43f5-6dc8-412e-9189-8ceec6b5ef27" width="200"  />
+  
 8. Untuk membuat user baru, tekan tombol `+` di pojok kanan bawah.
    - Lengkapi Form yang tersedia, tidak boleh ada yang kosong.
    - Lalu tekan tombol buat.
