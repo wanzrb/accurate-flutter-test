@@ -11,3 +11,9 @@ class AddUserCubit extends Cubit<String> {
 
   void selectedCity(String city) => emit(city);
 }
+
+class FilterCityCubit extends Cubit<String> {
+  FilterCityCubit() : super('Semua');
+
+  void filterSelected(String city) => emit(city);
+}

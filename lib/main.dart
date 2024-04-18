@@ -29,6 +29,9 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => AddUserBloc()),
           BlocProvider(
             create: (context) => AddUserCubit(),
+          ),
+          BlocProvider(
+            create: (context) => FilterCityCubit(),
           )
         ],
         child: MaterialApp.router(

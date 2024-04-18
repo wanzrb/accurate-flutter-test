@@ -10,6 +10,8 @@ class ListUser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FilterCityCubit filterCityCubit = context.read<FilterCityCubit>();
+
     return Expanded(
       child: BlocBuilder<GetUserBloc, GetUserState>(
         builder: (context, state) {
@@ -18,7 +20,7 @@ class ListUser extends StatelessWidget {
           }
 
           if (state is GetUserStateLoaded) {
-            final data = state.users;
+            var data = state.users;
 
             return BlocBuilder<ReversedCubit, bool>(
               builder: (context, state) {
@@ -26,15 +28,25 @@ class ListUser extends StatelessWidget {
                     ? b.name!.toLowerCase().compareTo(a.name!.toLowerCase())
                     : a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
 
-                return ListView.builder(
-                  itemCount: data.length,
-                  itemBuilder: (context, index) => Card(
-                    child: ListTile(
-                      leading: const Icon(Icons.person),
-                      title: Text('${data[index].name}'),
-                      subtitle: Text('${data[index].city}'),
-                    ),
-                  ),
+                return BlocBuilder<FilterCityCubit, String>(
+                  builder: (context, state) {
+                    final filter = data
+                        .where((element) => filterCityCubit.state == 'Semua'
+                            ? true
+                            : element.city == filterCityCubit.state)
+                        .toList();
+
+                    return ListView.builder(
+                      itemCount: filter.length,
+                      itemBuilder: (context, index) => Card(
+                        child: ListTile(
+                          leading: const Icon(Icons.person),
+                          title: Text('${filter[index].name}'),
+                          subtitle: Text('${filter[index].city}'),
+                        ),
+                      ),
+                    );
+                  },
                 );
               },
             );
