@@ -2,8 +2,6 @@ part of 'add_user_bloc.dart';
 
 sealed class AddUserEvent {}
 
-class AddUserEventGetCity extends AddUserEvent {}
-
 class AddUserEventPost extends AddUserEvent {
   final String name;
   final String address;

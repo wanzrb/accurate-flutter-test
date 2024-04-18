@@ -1,4 +1,4 @@
-import 'package:accurate_test/pages/home/cubit/home_cubit.dart';
+import 'package:accurate_test/bloc/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

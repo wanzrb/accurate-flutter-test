@@ -5,3 +5,9 @@ class ReversedCubit extends Cubit<bool> {
 
   void isReversed() => emit(!state);
 }
+
+class AddUserCubit extends Cubit<String> {
+  AddUserCubit() : super('Tangerang');
+
+  void selectedCity(String city) => emit(city);
+}

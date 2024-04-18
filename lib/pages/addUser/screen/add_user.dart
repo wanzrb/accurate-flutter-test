@@ -1,12 +1,11 @@
+import 'package:accurate_test/bloc/add_user/add_user_bloc.dart';
+import 'package:accurate_test/bloc/cubit.dart';
+import 'package:accurate_test/bloc/get_user/get_user_bloc.dart';
 import 'package:accurate_test/const/color.dart';
-import 'package:accurate_test/pages/addUser/bloc/add_user_bloc.dart';
-import 'package:accurate_test/pages/addUser/cubit/add_user_cubit.dart';
 import 'package:accurate_test/pages/addUser/widgets/custom_textfeld.dart';
 import 'package:accurate_test/pages/addUser/widgets/dropdown_city.dart';
-import 'package:accurate_test/pages/home/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class AddUserScreen extends StatelessWidget {
@@ -22,7 +21,7 @@ class AddUserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AddUserBloc addUserBloc = context.read<AddUserBloc>();
     AddUserCubit addUserCubit = context.read<AddUserCubit>();
-    HomeBloc homeBloc = context.read<HomeBloc>();
+    GetUserBloc getUserBloc = context.read<GetUserBloc>();
 
     return Scaffold(
       backgroundColor: ColorApp.lightBlue1,
@@ -89,16 +88,15 @@ class AddUserScreen extends StatelessWidget {
               ),
               BlocConsumer<AddUserBloc, AddUserState>(
                 listener: (context, state) {
-                  if (state is AddUserStatePostSuccess) {
-                    homeBloc.add(HomeEventGetUser());
+                  if (state is AddUserStatePosted) {
+                    getUserBloc.add(GetUserEventLoad());
                     ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Berhasil')));
-                    context.pop();
                   }
                 },
                 builder: (context, state) {
                   return InkWell(
-                    onTap: state is AddUserStatePostLoading
+                    onTap: state is AddUserStateLoading
                         ? null
                         : () {
                             if (nameC.text.isNotEmpty &&
@@ -128,7 +126,7 @@ class AddUserScreen extends StatelessWidget {
                             ColorApp.mediumBlue2
                           ])),
                       child: Center(
-                          child: state is AddUserStatePostLoading
+                          child: state is AddUserStateLoading
                               ? LoadingAnimationWidget.waveDots(
                                   color: ColorApp.darkBlue, size: 30)
                               : const Text(

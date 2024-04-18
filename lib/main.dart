@@ -1,7 +1,7 @@
-import 'package:accurate_test/pages/addUser/bloc/add_user_bloc.dart';
-import 'package:accurate_test/pages/addUser/cubit/add_user_cubit.dart';
-import 'package:accurate_test/pages/home/bloc/home_bloc.dart';
-import 'package:accurate_test/pages/home/cubit/home_cubit.dart';
+import 'package:accurate_test/bloc/add_user/add_user_bloc.dart';
+import 'package:accurate_test/bloc/cubit.dart';
+import 'package:accurate_test/bloc/get_city/get_city_bloc.dart';
+import 'package:accurate_test/bloc/get_user/get_user_bloc.dart';
 import 'package:accurate_test/routes/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,14 +18,15 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => HomeBloc()..add(HomeEventGetUser()),
+            create: (context) => GetUserBloc()..add(GetUserEventLoad()),
           ),
           BlocProvider(
             create: (context) => ReversedCubit(),
           ),
           BlocProvider(
-            create: (context) => AddUserBloc()..add((AddUserEventGetCity())),
+            create: (context) => GetCityBloc()..add(GetCityEventLoad()),
           ),
+          BlocProvider(create: (context) => AddUserBloc()),
           BlocProvider(
             create: (context) => AddUserCubit(),
           )

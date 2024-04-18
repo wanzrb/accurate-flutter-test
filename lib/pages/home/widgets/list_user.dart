@@ -1,5 +1,5 @@
-import 'package:accurate_test/pages/home/bloc/home_bloc.dart';
-import 'package:accurate_test/pages/home/cubit/home_cubit.dart';
+import 'package:accurate_test/bloc/cubit.dart';
+import 'package:accurate_test/bloc/get_user/get_user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,17 +10,14 @@ class ListUser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HomeBloc homeBloc = context.read<HomeBloc>();
-
     return Expanded(
-      child: BlocBuilder<HomeBloc, HomeState>(
-        bloc: homeBloc,
+      child: BlocBuilder<GetUserBloc, GetUserState>(
         builder: (context, state) {
-          if (state is HomeStateGetLoading) {
+          if (state is GetUserStateLoading) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (state is HomeStateGetSuccess) {
+          if (state is GetUserStateLoaded) {
             final data = state.users;
 
             return BlocBuilder<ReversedCubit, bool>(
@@ -43,7 +40,7 @@ class ListUser extends StatelessWidget {
             );
           }
 
-          if (state is HomeStateGetError) {
+          if (state is GetUserStateError) {
             return Text(state.error);
           }
 
