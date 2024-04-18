@@ -17,3 +17,9 @@ class FilterCityCubit extends Cubit<String> {
 
   void filterSelected(String city) => emit(city);
 }
+
+class SearchCubit extends Cubit<String> {
+  SearchCubit() : super('');
+
+  void searchUser(String value) => emit(value);
+}

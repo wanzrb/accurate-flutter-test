@@ -28,23 +28,36 @@ class ListUser extends StatelessWidget {
                     ? b.name!.toLowerCase().compareTo(a.name!.toLowerCase())
                     : a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
 
-                return BlocBuilder<FilterCityCubit, String>(
+                return BlocBuilder<SearchCubit, String>(
                   builder: (context, state) {
-                    final filter = data
-                        .where((element) => filterCityCubit.state == 'Semua'
-                            ? true
-                            : element.city == filterCityCubit.state)
-                        .toList();
+                    final search = data.where((element) => element.name!
+                        .toLowerCase()
+                        .contains(state.toLowerCase()));
 
-                    return ListView.builder(
-                      itemCount: filter.length,
-                      itemBuilder: (context, index) => Card(
-                        child: ListTile(
-                          leading: const Icon(Icons.person),
-                          title: Text('${filter[index].name}'),
-                          subtitle: Text('${filter[index].city}'),
-                        ),
-                      ),
+                    return BlocBuilder<FilterCityCubit, String>(
+                      builder: (context, state) {
+                        final filter = search
+                            .where((element) => filterCityCubit.state == 'Semua'
+                                ? true
+                                : element.city == filterCityCubit.state)
+                            .toList();
+
+                        if (filter.isEmpty) {
+                          return const Center(
+                            child: Text('User Tidak Ditemukan'),
+                          );
+                        }
+                        return ListView.builder(
+                          itemCount: filter.length,
+                          itemBuilder: (context, index) => Card(
+                            child: ListTile(
+                              leading: const Icon(Icons.person),
+                              title: Text('${filter[index].name}'),
+                              subtitle: Text('${filter[index].city}'),
+                            ),
+                          ),
+                        );
+                      },
                     );
                   },
                 );

@@ -32,6 +32,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => FilterCityCubit(),
+          ),
+          BlocProvider(
+            create: (context) => SearchCubit(),
           )
         ],
         child: MaterialApp.router(
